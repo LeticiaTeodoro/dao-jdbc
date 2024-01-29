@@ -11,7 +11,7 @@ public interface VendedorDAO {
 	
 	void update(Vendedor seller);
 	
-	void deleteById(Integer id);
+	void deleteById(Integer id) throws Exception;
 
 	Vendedor findById(Integer id);
 	

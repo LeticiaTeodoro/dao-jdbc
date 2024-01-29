@@ -94,14 +94,32 @@ public class VendedorDaoJDBC implements VendedorDAO {
 		} finally {
 			
 			DB.closeStatement(st);
-		}
-		
+		}		
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
+	public void deleteById(Integer id) throws Exception {
 		
+		try {
+			
+			st = conn.prepareStatement("delete from seller where Id = ?");			
+			st.setInt(1, id);	
+			
+			int linhasAfetadas = st.executeUpdate();	
+			
+			if(linhasAfetadas == 0) {
+				
+				throw new  Exception("Id não encontrado");
+			}
+			
+		} catch (SQLException e) {
+			
+			throw new DbException(e.getMessage());
+			
+		} finally {
+			
+			DB.closeStatement(st);
+		}		
 	}
 
 	@Override
@@ -247,5 +265,4 @@ public class VendedorDaoJDBC implements VendedorDAO {
 			DB.closeResultSet(rs);
 		}
 	}
-
 }
